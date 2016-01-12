@@ -1,6 +1,9 @@
 var THREE = require('three');
+var makeText = require('./makeText')(THREE);
+var typeface = require('three.regular.helvetiker');
+THREE.typeface_js.loadFace(typeface);
 
-var scene, camera, renderer, pointLight;
+var scene, camera, renderer, pointLight, time = 0;
 
 var geometry, material, mesh;
 
@@ -22,6 +25,14 @@ function init () {
   geometry = new THREE.BoxGeometry(200, 200, 200);
   material = new THREE.MeshBasicMaterial({color: 0xff00ff, wireframe: true});
   mesh = new THREE.Mesh(geometry, material);
+  var obj = makeText('PULA.', {
+			size: 6,
+			depth: 0,
+			curveSegments: 3,
+			wireframe: true,
+			color: '#ff0000'
+		})
+  scene.add(obj);
   scene.add(mesh);
 
   renderer = new THREE.WebGLRenderer();
@@ -32,24 +43,33 @@ function init () {
 function animate() {
   requestAnimationFrame(animate);
 
-/*  mesh.rotation.x += 0.01;*/
-  /*mesh.rotation.y += 0.02;*/
+  time += 1;
+ mesh.rotation.x += 0.001;
+ mesh.rotation.y += 0.002;
+  if (time < 300) {
+    camera.position.z += 0.1
+  }
   renderer.render(scene, camera);
 }
 
 function handleInput (e) {
-  switch (e.key) {
+  console.log(e.keyIdentifier)
+  switch (e.keyIdentifier) {
     case "Up":
     camera.position.y += 1;
+    break;
     case "Down":
     camera.position.y -= 1;
+    break;
     case "Left":
     camera.position.x -= 1;
+    break;
     case "Right":
     camera.position.x += 1;
+    break;
   }
 
     e.stopPropagation();
 };
 
-window.addEventListener('keydown', handleInput); 
+window.addEventListener('keydown', handleInput);

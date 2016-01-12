@@ -1,5 +1,5 @@
 {
-  "name": "abime-web",
+  "name": "p.u.l.a.",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "three": "^0.69.0"
+    "defined": "^1.0.0",
+    "three": "^0.69.0",
+    "three.regular.helvetiker": "^1.0.0"
   }
 }
